@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addUser } from './store/user'
 
 function App() {
-  const [state, setState] = useState('teste')
+  const users = useSelector(state => state.user)
+  const dispatch = useDispatch()
+
+  const addNewUser= () => {
+    const user = { 
+      name: 'Daniel',
+      age: '20'
+    }
+    
+    dispatch(addUser(user))
+  }
+
   return (
-    <div>
-        { state }
-    </div>
+      <div>
+          <button onClick={addNewUser}>Cadastrar</button>
+          
+          { users &&  users.map(user => user.name )}
+      </div>
   );
 }
 
